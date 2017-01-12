@@ -1,7 +1,7 @@
 '''
 ============== Documentation ===============
 
-Enter the details about the examination in "data_of_exam" dictionary given below
+Enter the details about the examination in "data_of_exam" (line 60) dictionary given below
 The result will be printed to "result.txt" file in the present working directory.
 
 The spacing of the data in file makes it easier to make it into spreadsheet document.
@@ -9,7 +9,7 @@ The result can be simply copy pasted to spreadsheet to make spreadsheet document
 
 The roll numbers used here are those of MEC students.
 If you're non MECian provide the required roll numbers as a list
-in variable : "register_numbers" (line 79).
+in variable : "register_numbers" (line 77).
 
 
 
@@ -66,8 +66,6 @@ data_of_exam = {
 	'class' : 'CS-B',
 }
 
-
-super_set = ['12150600']+[ str(x) for x in xrange(12150800,12150931) ]
 
 
 roll_nos = {
