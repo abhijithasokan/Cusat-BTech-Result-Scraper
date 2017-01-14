@@ -67,9 +67,9 @@ data_of_exam = {
 	'month' : "May",
 	'year' : "2015",
 	'semester' : "1&2",
-	'type_of_exam' : "Regular",
+	'type_of_exam' : "Revaluation",
 	'run_time' : "2017/01/12",
-	'class' : 'CS-A',
+	'class' : 'CS-B',
 	'branch' : 'CS',
 	'subjectCodes' : ['CS1101', 'CS1102', 'CS1103', 'CS1104', 'CS1105', 'CS1106', 'CS1107', 'CS1108', 'CS1109', 'CS11L1', 'CS11L2', 'CS11L3']
 	}
@@ -123,9 +123,8 @@ subjectCodeToPos = dict(t[::-1] for t in enumerate(data_of_exam['subjectCodes'])
 
 
 count_data = 0
-
-subs = ','.join(map(lambda x:'{:6s}'.format(x),data_of_exam['subjectCodes'])) 
-head = 'NAME,'+'REG NO.,'+subs+',TM,GPA'
+subs = '   ,   '.join(data_of_exam['subjectCodes']) 
+head = 'NAME  ,'+' REG NO ,   '+subs+'   ,  TM  ,  GPA  '
 
 f.write(head+'\n')
 
@@ -134,7 +133,7 @@ for regno in register_numbers:
 	
 	count = 0
 	while True:
-		if count==3:
+		if count==1:
 			print 'Breaked due to either timeout or %s not appearing for exam'%regno
 			break
 		try:
@@ -175,13 +174,13 @@ for regno in register_numbers:
 			for item in tmarks:
 				marks[subjectCodeToPos[item[0]]] = item
 			
-			marks_toprint = ','.join(map(lambda x:'%3s%3s'%(x[1],x[2]),marks) )
+			marks_toprint = ' , '.join(map(lambda x:'%3s%3s'%(x[1],x[2]),marks) )
 
-			name_toprint = '{:40s}'.format(name)
+			name_toprint = name
 
-			gpa_toprint = '{},{}'.format(gpa[0],gpa[1])
+			gpa_toprint = '  %s  ,  %s  '%(gpa[0],gpa[1])
 
-			final_details = name_toprint+','+regno+','+marks_toprint+','+gpa_toprint
+			final_details = name_toprint+' , '+regno+'   , '+marks_toprint+' ,'+gpa_toprint
 			print final_details
 			f.write(final_details+'\n')
 
@@ -199,5 +198,6 @@ for regno in register_numbers:
 print '\n\n\n\n\n\nNo.of results fetched: %d'%count_data
 f.close()
 os.system("libreoffice --calc --convert-to xlsx %s"%file_name)
+os.system("rm %s"%file_name)
 
 
