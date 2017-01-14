@@ -1,12 +1,12 @@
 '''
 ============== Documentation ===============
 
-Enter the details about the examination in "data_of_exam" (line 60) dictionary given below
+Enter the details about the examination in "data_of_exam" (line 66) dictionary given below
 The result will be printed to "result.txt" file in the present working directory.
 
 The roll numbers used here are those of MEC students.
 If you're non MECian provide the required roll numbers as a list
-in variable : "register_numbers" (line 77).
+in variable : "register_numbers" (line 86).
 
 If you have libreoffice calc installed in your system, this script will generate the
 output as spreadsheet.
