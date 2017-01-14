@@ -8,6 +8,8 @@ The roll numbers used here are those of MEC students.
 If you're non MECian provide the required roll numbers as a list
 in variable : "register_numbers" (line 77).
 
+If you have libreoffice calc installed in your system, this script will generate the
+output as spreadsheet.
 
 
 Example of data for 3rd semester result:
