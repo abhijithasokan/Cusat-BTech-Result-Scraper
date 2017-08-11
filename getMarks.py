@@ -53,6 +53,40 @@ Example of data for 4th semester result:
 			'subjectCodes' : ['CS1401', 'CS1402', 'CS1403', 'CS1404', 'CS1405', 'CS1406', 'CS14L1', 'CS14L2']
 		}
 
+
+Example of data for 1&2 semester Supplementary result:
+
+data_of_exam = {
+	'month' : "June",
+	'year' : "2016",
+	'semester' : "1&2",
+	'type_of_exam' : "Supplementary",
+	'run_time' : "2017/02/04",
+	'class' : 'CS-A',
+	'branch' : 'CS',
+	'subjectCodes' : ['CS1101', 'CS1102', 'CS1103', 'CS1104', 'CS1105', 'CS1106', 'CS1107', 'CS1108', 'CS1109', 'CS11L1', 'CS11L2', 'CS11L3']
+	}
+
+
+
+
+
+
+data_of_exam = {
+	'month' : "April",		 
+	'year' : "2016",			 
+	'semester' : "4",			 
+	'type_of_exam' : "Revaluation",  
+	'run_time' : "2017/01/12",	 
+	'class' : 'CS-B',			 
+	'branch' : 'CS',
+	'subjectCodes' : ['CS1401', 'CS1402', 'CS1403', 'CS1404', 'CS1405', 'CS1406', 'CS14L1', 'CS14L2'] 
+}
+
+
+
+
+
 '''
 
 import re
@@ -62,17 +96,17 @@ import time
 import os
 
 
-
 data_of_exam = {
-	'month' : "May",
-	'year' : "2015",
-	'semester' : "1&2",
-	'type_of_exam' : "Revaluation",
-	'run_time' : "2017/01/12",
-	'class' : 'CS-B',
+	'month' : "April",		 
+	'year' : "2017",			 
+	'semester' : "6",			 
+	'type_of_exam' : "Regular",  
+	'run_time' : "2017/07/31",	 
+	'class' : 'CS-B',			 
 	'branch' : 'CS',
-	'subjectCodes' : ['CS1101', 'CS1102', 'CS1103', 'CS1104', 'CS1105', 'CS1106', 'CS1107', 'CS1108', 'CS1109', 'CS11L1', 'CS11L2', 'CS11L3']
-	}
+	'subjectCodes' : ['CS 1601', 'CS 1602', 'CS 1603', 'CS 1604', 'CS 1605', 'CS 1606', 'CS 16L1', 'CS 16L2']
+}
+
 
 
 file_name = 'Semester_%s_%s_result_%s.txt'%(data_of_exam['semester'],data_of_exam['type_of_exam'],data_of_exam['class'])
@@ -94,13 +128,6 @@ header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHT
        'Connection': 'keep-alive'}
 
 
-
-
-marks_str = '''<td>.*?</td><td style="text-align:center;">
-
-(.*?)\((\w)\)
-
-</td>'''
 
 marks_str = '''<td>(%s.*?)</td><td>.*?</td><td style="text-align:center;">
 
@@ -133,7 +160,7 @@ for regno in register_numbers:
 	
 	count = 0
 	while True:
-		if count==1:
+		if count==3:
 			print 'Breaked due to either timeout or %s not appearing for exam'%regno
 			break
 		try:
@@ -147,7 +174,7 @@ for regno in register_numbers:
 				"month":data_of_exam['month'],
 				"year":data_of_exam['year'],
 				"result_type": data_of_exam['type_of_exam'],
-				"ipadress":"117.245.10.120",
+				"ipadress":"117.245.10.118",
 				"date_time":t,
 			}
 			next_url = 'http://exam.cusat.ac.in/erp5/cusat/CUSAT-RESULT/Result_Declaration/display_sup_result'
@@ -160,7 +187,6 @@ for regno in register_numbers:
 			
 
 			tmarks = re.findall(marks_str,res_page)
-			
 
 			name = re.search('<th>Student Name</th><td>(.*?)</td>',res_page).group(1)
 			grades = re.search(grades_str,res_page)
@@ -172,6 +198,8 @@ for regno in register_numbers:
 
 			marks = [('','','')]*noOfSubs
 			for item in tmarks:
+				if item[0] not in subjectCodeToPos:
+					item = (item[0][:item[0].rfind('E')-1],item[1],item[2])
 				marks[subjectCodeToPos[item[0]]] = item
 			
 			marks_toprint = ' , '.join(map(lambda x:'%3s%3s'%(x[1],x[2]),marks) )
