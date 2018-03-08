@@ -1,7 +1,12 @@
-- For help:
-```sh
-  python getMarks.py --help
- ```
+- Instructions and documentation:
+  - From shell
+  - ```sh
+    python getMarks.py --help
+    ```
+  - From python shell
+  - ```py
+    help(CusatResultScraper)
+    ```
 
 - Requirements:
   - python3
