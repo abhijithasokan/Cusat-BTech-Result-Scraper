@@ -69,7 +69,7 @@ class CusatResultScraper():
 		'Accept-Language': 'en-US,en;q=0.8',
 		'Connection': 'keep-alive'
 	}
-	TRY_LIMIT = 10
+	TRY_LIMIT = 20
 
 
 	def __init__(self,semester,class_name,result_month,result_year,exam_type,subject_codes,log_errors=False):
@@ -114,7 +114,7 @@ class CusatResultScraper():
 		post_data = self.post_data_common + bytes(str(regno),encoding='utf8')
 
 		count = 0
-		timeout = 0.5
+		timeout = 2
 		reason = ''
 		while True:
 			if count>=CusatResultScraper.TRY_LIMIT:
@@ -204,12 +204,12 @@ if __name__ == '__main__':
 	if '--help' in sys.argv:
 		print(CusatResultScraper.__doc__)
 	else:
-		CusatResultScraper(semester="7",
-			class_name = 'CS-B',
-			result_month = 11,
-			result_year = 2017,
+		CusatResultScraper(semester="8",
+			class_name = 'CS-A',
+			result_month = 4,
+			result_year = 2018,
 			exam_type = "Regular",
-			subject_codes = ['1701', '1702', '1703', '1704', '1705', '17L1', '17L2', '17L3', '17L4'],
+			subject_codes = ['1801', '1802', '1803', '1804','18L1', '18L2'],
 			log_errors = False
 		).fetchResults()
 
